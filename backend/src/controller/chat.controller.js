@@ -29,7 +29,8 @@ export const chatWithBot = async (req, res) => {
 
     } catch (error) {
         res.status(500).json({
-            message: "Something went wrong"
+           success:false,
+           message:error.message
         })
     }
 

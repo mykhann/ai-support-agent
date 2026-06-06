@@ -1,4 +1,5 @@
 import axios from "axios"
+import "dotenv/config"
 
 export const askGroq = async (question, context) => {
     const groq_api_key = process.env.GROQ_API_KEY
@@ -29,6 +30,6 @@ export const askGroq = async (question, context) => {
 
 
     )
-    const groq_response = response?.data?.choices[0]?.content
+    const groq_response = response?.data?.choices[0]?.message?.content
     return groq_response;
 }

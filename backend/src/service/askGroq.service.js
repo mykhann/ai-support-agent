@@ -11,7 +11,7 @@ export const askGroq = async (question, context) => {
             messages: [
                 {
                     role: "system",
-                    content: `You are a helpful customer support,use this ${context} for answers  `
+                    content: `You are a helpful customer support,use this ${context} for answers if available, otherwise use general knowledg  `
                 },
                 {
                     role: "user",

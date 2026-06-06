@@ -1,8 +1,7 @@
 import FAQ from "../models/faq.models.js"
 import { askGroq } from "../service/askGroq.service.js"
 
-import FAQ from "../models/faq.models.js";
-import { askGroq } from "../service/askGroq.service.js";
+
 
 export const chatWithBot = async (req, res) => {
   try {

@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import {connectDB} from "./src/config/db.js"
 import chatRoutes from "./src/route/chat.route.js"
+import faqRoutes from "./src/route/faq.route.js"
 
 
 dotenv.config();
@@ -15,6 +16,7 @@ connectDB()
 // routes 
 
 app.use("/api/chat",chatRoutes)
+app.use("/api/faq",faqRoutes)
 
 
 

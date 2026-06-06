@@ -4,3 +4,6 @@ const router=Router();
 
 
 router.post("/",addFaq)
+
+
+export default router

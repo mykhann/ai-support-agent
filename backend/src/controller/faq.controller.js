@@ -1,4 +1,4 @@
-import FAQ from "../models/faq.models"
+import FAQ from "../models/faq.models.js"
 
 export const addFaq=async(req,res)=>{
    try {

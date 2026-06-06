@@ -3,7 +3,7 @@ import FAQ from "../models/faq.models.js"
 export const addFaq=async(req,res)=>{
    try {
      const {question,answer}=req.body;
-    if (!question || answer){
+    if (!question || !answer){
         res.status(400).json({
             success:false,
             message:"question and answer are required"

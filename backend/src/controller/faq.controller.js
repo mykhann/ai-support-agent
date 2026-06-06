@@ -17,7 +17,7 @@ export const addFaq=async(req,res)=>{
    return res.status(200).json({
         success:true,
         message:"faq added successfully",
-        data:addFaq
+        data:addFAQ
     })
 
     

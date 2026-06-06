@@ -3,7 +3,7 @@ import { chatWithBot } from "../controller/chat.controller.js";
 
 const router=Router()
 
-router.route("/chat",chatWithBot)
+router.route("/",chatWithBot)
 
 
 export default router;

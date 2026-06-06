@@ -1,7 +1,8 @@
 import FAQ from "../models/faq.models"
 
 export const addFaq=async(req,res)=>{
-    const {question,answer}=req.body;
+   try {
+     const {question,answer}=req.body;
     if (!question || answer){
         res.status(400).json({
             success:false,
@@ -20,4 +21,9 @@ export const addFaq=async(req,res)=>{
     })
 
     }
+    
+   } catch (error) {
+    res.status(500).json(error.message)
+    
+   }
 }

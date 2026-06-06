@@ -31,6 +31,7 @@ export const chatWithBot = async (req, res) => {
     chat.messages.push({
       role: "user",
       content: message,
+      createdAt: new Date()
     });
 
     const faqs = await FAQ.find({

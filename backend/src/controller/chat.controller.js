@@ -37,3 +37,21 @@ export const chatWithBot = async (req, res) => {
     });
   }
 };
+
+export const getChatHistory = async (req, res) => {
+  try {
+    const { sessionId } = req.params;
+
+    const chat = await Chat.findOne({ sessionId });
+
+    return res.status(200).json({
+      success: true,
+      messages: chat?.messages || [],
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};

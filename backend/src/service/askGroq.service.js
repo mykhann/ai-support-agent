@@ -10,11 +10,11 @@ export const askGroq = async (question, context) => {
             model: process.env.GROQ_MODEL,
             messages: [
                 {
-                    role: "System",
-                    content: `You are a helpful customer support , use this ${context} for answers  `
+                    role: "system",
+                    content: `You are a helpful customer support,use this ${context} for answers  `
                 },
                 {
-                    role: "User",
+                    role: "user",
                     content: question
                 }
 

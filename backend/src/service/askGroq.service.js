@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const askGroq = async (question, context) => {
+export const askGroq = async (question, context) => {
     const groq_api_key = process.env.GROQ_API_KEY
     const groq_model = process.env.GROQ_MODEL
     const response = await axios.post(

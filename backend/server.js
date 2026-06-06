@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import {connectDB} from "./src/config/db.js"
+import chatRoutes from "./src/route/chat.route.js"
 
 
 dotenv.config();
@@ -11,6 +12,9 @@ app.use(express.json());
 // DB connection 
 connectDB()
 
+// routes 
+
+app.use("/api/chat",chatRoutes)
 
 
 

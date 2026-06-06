@@ -13,7 +13,7 @@ export const askGroq = async (question, context) => {
                     content: `You are a helpful customer support , use this ${context} for answers  `
                 },
                 {
-                    role:"User",
+                    role: "User",
                     content: question
                 }
 
@@ -21,14 +21,14 @@ export const askGroq = async (question, context) => {
         },
 
         {
-            headers:{
-                Authorization:`Bearer ${groq_api_key}`,
-                "Content-Type":"application/json"
+            headers: {
+                Authorization: `Bearer ${groq_api_key}`,
+                "Content-Type": "application/json"
             }
         }
 
-     
+
     )
-    const groq_response=response?.data?.choices[0]?.content
+    const groq_response = response?.data?.choices[0]?.content
     return groq_response;
 }

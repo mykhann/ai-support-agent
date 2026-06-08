@@ -1,4 +1,4 @@
-/* Base Resets */
+
 * {
   margin: 0;
   padding: 0;
@@ -23,7 +23,7 @@ body {
 .chat-container {
   width: 100%;
   max-width: 900px;
-  height: 100vh;
+  height: 95vh;
   display: flex;
   flex-direction: column;
   background: #131314;
@@ -272,5 +272,41 @@ body {
 
   .chat-footer {
     padding: 16px;
+  }
+}
+
+/* Suggestion Grid Layout */
+.suggestions-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  max-width: 600px;
+  margin: 10px auto 0 auto;
+  padding-left: 48px;
+}
+
+.suggestion-card {
+  background: #1e1f20;
+  border: 1px solid #2f3031;
+  color: #e3e3e3;
+  padding: 14px 16px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.suggestion-card:hover {
+  background: #2a2b2d;
+  border-color: #1a73e8;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 600px) {
+  .suggestions-grid {
+    grid-template-columns: 1fr;
+    padding-left: 0;
   }
 }

@@ -58,9 +58,10 @@ export const chatWithBot = async (req, res) => {
     });
 
   } catch (error) {
+    console.log(error.message)
     return res.status(500).json({
       success: false,
-      message: error.message,
+      message: "Interval Automation Error"
     });
   }
 };

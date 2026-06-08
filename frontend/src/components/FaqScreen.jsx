@@ -1,10 +1,14 @@
 import { useState, useRef, useEffect } from "react";
+import axios from "axios"; // Import Axios
 import "./FAQChat.css";
+
+const API_BASE_URL = "http://localhost:3000/api"; 
 
 export default function FAQChat() {
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [loadingStatus, setLoadingStatus] = useState("");
+  const [sessionId] = useState(() => `session_${Date.now()}`); 
   const [messages, setMessages] = useState([
     {
       id: 1,
@@ -14,7 +18,6 @@ export default function FAQChat() {
     },
   ]);
 
-  // 1. Preset Technical Questions 
   const suggestionCards = [
     { label: "🔄 Webhook Retry Limits", query: "What is the retry policy for failing webhook integrations?" },
     { label: "🔒 Webhook Security", query: "How do I authenticate incoming webhooks from external services?" },
@@ -24,18 +27,19 @@ export default function FAQChat() {
 
   const messagesEndRef = useRef(null);
 
+  // Fetch chat history on initial mount if needed
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({
       behavior: "smooth",
     });
   }, [messages, isLoading]);
 
-  // 2. Extracted submission 
-  const handleQuerySubmit = (queryText) => {
+  const handleQuerySubmit = async (queryText) => {
     if (!queryText.trim() || isLoading) return;
 
     const userTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
+    // Push user query locally right away
     setMessages((prev) => [
       ...prev,
       {
@@ -47,13 +51,37 @@ export default function FAQChat() {
     ]);
 
     setIsLoading(true);
-    setLoadingStatus("🔍 Querying MongoDB via Case-Insensitive Regex...");
-    
-    setTimeout(() => {
-      setLoadingStatus("🧠 Dynamic Context Extracted. Compiling Groq LLM system prompt...");
-    }, 900);
+    setLoadingStatus("🔍 Querying Database via Case-Insensitive Regex...");
 
-    setTimeout(() => {
+    try {
+   
+      await new Promise((resolve) => setTimeout(resolve, 600));
+      setLoadingStatus("🧠 Dynamic Context Extracted. Compiling Groq LLM system prompt...");
+      await new Promise((resolve) => setTimeout(resolve, 600));
+      setLoadingStatus("🚀 Routing contextual payload to Groq Infrastructure...");
+
+      const response = await axios.post(`${API_BASE_URL}/chat`, {
+        message: queryText,
+        sessionId: sessionId
+      });
+
+      const botTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+      // Append the real response from Groq
+      if (response.data.success) {
+        setMessages((prev) => [
+          ...prev,
+          {
+            id: Date.now() + 1,
+            role: "assistant",
+            content: response.data.reply,
+            time: botTime
+          },
+        ]);
+      }
+
+    } catch (error) {
+      console.error("API Connection Error:", error);
       const botTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
       
       setMessages((prev) => [
@@ -61,13 +89,14 @@ export default function FAQChat() {
         {
           id: Date.now() + 1,
           role: "assistant",
-          content: "I have successfully retrieved the verified system specifications from our dataset context block. The environment execution constraints match normal runtime limits.",
+          content: "❌ System Connection Fault: Failed to establish data stream pipeline with the automation server.",
           time: botTime
         },
       ]);
+    } finally {
       setIsLoading(false);
       setLoadingStatus("");
-    }, 2000);
+    }
   };
 
   const handleSubmit = (e) => {
@@ -116,7 +145,7 @@ export default function FAQChat() {
               </div>
             ))}
 
-            {/* 3. Render Suggestion Cards ONLY on initial greeting view */}
+            {/* Render Suggestion Cards ONLY on initial greeting view */}
             {messages.length === 1 && !isLoading && (
               <div className="suggestions-grid">
                 {suggestionCards.map((card, index) => (
@@ -132,6 +161,7 @@ export default function FAQChat() {
               </div>
             )}
 
+            {/* Pipeline Status Terminal Indicator */}
             {isLoading && (
               <div className="message-row assistant loading-row">
                 <div className="avatar msg-avatar">🤖</div>
@@ -148,7 +178,7 @@ export default function FAQChat() {
           </div>
         </div>
 
-        {/* Footer Input */}
+        {/* Input */}
         <footer className="chat-footer">
           <form className="input-container" onSubmit={handleSubmit}>
             <input

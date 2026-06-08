@@ -34,10 +34,14 @@ export const chatWithBot = async (req, res) => {
       createdAt: new Date()
     });
 
-    const faqs = await FAQ.find({
-      question: { $regex: message, $options: "i" },
-    }).limit(5);
+    const words = message.trim().split(/\s+/);
 
+    const faqs = await FAQ.find({
+      $or: words.flatMap(word => [
+        { question: { $regex: word, $options: "i" } },
+        { answer: { $regex: word, $options: "i" } }
+      ])
+    }).limit(5);
     const context =
       faqs.length > 0
         ? faqs.map((f) => `Q: ${f.question}\nA: ${f.answer}`).join("\n\n")

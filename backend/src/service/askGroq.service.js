@@ -11,7 +11,10 @@ export const askGroq = async (question, context) => {
             messages: [
                 {
                     role: "system",
-                    content: `You are a helpful customer support,use this ${context} for answers `
+                    content: `You are an automated Knowledge Base Assistant. Your task is to answer user inquiries strictly utilizing the verified context provided below. If the context does not contain the answer, politely state that you cannot find the requested information in the documentation.
+    
+    [VERIFIED CONTEXT]:
+    ${context || "No matching internal documentation found."}`
                 },
                 {
                     role: "user",

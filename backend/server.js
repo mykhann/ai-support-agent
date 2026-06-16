@@ -17,7 +17,7 @@ connectDB()
 // cors 
 
 app.use(cors({
-  origin:"http://localhost:5173"
+  origin:"https://doc-based-ai-support-agent.vercel.app"
 }))
 // routes 
 

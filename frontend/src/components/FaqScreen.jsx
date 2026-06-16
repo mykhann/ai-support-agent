@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import axios from "axios"; // Import Axios
 import "./FAQChat.css";
 
-const API_BASE_URL = "http://localhost:3000/api"; 
+const API_BASE_URL = "https://doc-based-ai-support-agent.onrender.com/api"; 
 
 export default function FAQChat() {
   const [message, setMessage] = useState("");

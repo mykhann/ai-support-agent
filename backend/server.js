@@ -17,7 +17,10 @@ connectDB()
 // cors 
 
 app.use(cors({
-  origin:"https://doc-based-ai-support-agent.vercel.app"
+    origin: [
+    "https://doc-based-ai-support-agent.vercel.app",
+    "https://doc-based-ai-support-agent-ivwl63xzc-usafkhann5-7890s-projects.vercel.app"
+  ]
 }))
 // routes 
 

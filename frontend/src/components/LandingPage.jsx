@@ -48,7 +48,7 @@ export default function LandingPage({ onEnterChat }) {
           <p className="cta-caption">Click to test the AI chat interface yourself.</p>
         </div>
 
-        {/* Feature Grid / Recruiter Insights */}
+
         <section className="info-grid">
           <div className="info-card">
             <div className="card-icon">📂</div>

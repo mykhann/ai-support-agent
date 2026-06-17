@@ -4,7 +4,7 @@ import "./FAQChat.css";
 
 const API_BASE_URL = "https://doc-based-ai-support-agent.onrender.com/api"; 
 
-export default function FAQChat({ onBackToHome }) { // Added prop here
+export default function FAQChat({ onBackToHome }) {
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [loadingStatus, setLoadingStatus] = useState("");

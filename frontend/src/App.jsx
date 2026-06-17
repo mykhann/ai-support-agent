@@ -10,7 +10,7 @@ function App() {
       {viewMode === "landing" ? (
         <LandingPage onEnterChat={() => setViewMode("chat")} />
       ) : (
-        <FaqScreen />
+        <FaqScreen onBackToHome={() => setViewMode("landing")} />
       )}
     </>
   );

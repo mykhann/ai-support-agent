@@ -1,10 +1,10 @@
 import { useState, useRef, useEffect } from "react";
-import axios from "axios"; // Import Axios
+import axios from "axios"; 
 import "./FAQChat.css";
 
 const API_BASE_URL = "https://doc-based-ai-support-agent.onrender.com/api"; 
 
-export default function FAQChat() {
+export default function FAQChat({ onBackToHome }) { // Added prop here
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [loadingStatus, setLoadingStatus] = useState("");
@@ -13,7 +13,7 @@ export default function FAQChat() {
     {
       id: 1,
       role: "assistant",
-      content: "Hello! I'm your Automation Knowledge Assistant. Select a pipeline query below or type your own to test the retrieval network.",
+      content: "Hello! I'm your Automation Knowledge Assistant. Select a company rule query below or type your own to test the retrieval network.",
       time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     },
   ]);
@@ -27,7 +27,6 @@ export default function FAQChat() {
 
   const messagesEndRef = useRef(null);
 
-  // Fetch chat history on initial mount if needed
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({
       behavior: "smooth",
@@ -39,7 +38,6 @@ export default function FAQChat() {
 
     const userTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
-    // Push user query locally right away
     setMessages((prev) => [
       ...prev,
       {
@@ -54,7 +52,6 @@ export default function FAQChat() {
     setLoadingStatus("🔍 Querying Database via Case-Insensitive Regex...");
 
     try {
-   
       await new Promise((resolve) => setTimeout(resolve, 600));
       setLoadingStatus("🧠 Dynamic Context Extracted. Compiling Groq LLM system prompt...");
       await new Promise((resolve) => setTimeout(resolve, 600));
@@ -67,7 +64,6 @@ export default function FAQChat() {
 
       const botTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
-      // Append the real response from Groq
       if (response.data.success) {
         setMessages((prev) => [
           ...prev,
@@ -109,15 +105,23 @@ export default function FAQChat() {
     <div className="chat-page">
       <div className="chat-container">
         
-        {/* Header */}
+        {/* Header with Premium Back Button */}
         <header className="chat-header">
-          <div className="header-info">
-            <div className="avatar bot-avatar-header">🤖</div>
-            <div>
-              <h2>RAG Knowledge Bot</h2>
-              <div className="status-container">
-                <span className="status-dot"></span>
-                <span className="status-text">Automation Active</span>
+          <div className="header-left">
+            <button className="back-btn" onClick={onBackToHome} title="Go back to home">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
+              </svg>
+              <span>Back</span>
+            </button>
+            <div className="header-info">
+              <div className="avatar bot-avatar-header">🤖</div>
+              <div>
+                <h2>RAG Knowledge Bot</h2>
+                <div className="status-container">
+                  <span className="status-dot"></span>
+                  <span className="status-text">Automation Active</span>
+                </div>
               </div>
             </div>
           </div>
@@ -145,7 +149,6 @@ export default function FAQChat() {
               </div>
             ))}
 
-            {/* Render Suggestion Cards ONLY on initial greeting view */}
             {messages.length === 1 && !isLoading && (
               <div className="suggestions-grid">
                 {suggestionCards.map((card, index) => (
@@ -161,7 +164,6 @@ export default function FAQChat() {
               </div>
             )}
 
-            {/* Pipeline Status Terminal Indicator */}
             {isLoading && (
               <div className="message-row assistant loading-row">
                 <div className="avatar msg-avatar">🤖</div>

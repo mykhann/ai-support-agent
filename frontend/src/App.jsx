@@ -1,15 +1,19 @@
-import { useState } from 'react'
-// import './App.css'
-import FaqScreen from './components/FaqScreen'
+import { useState } from "react";
+import LandingPage from "./components/LandingPage";
+import FaqScreen from "./components/FaqScreen"; 
 
 function App() {
-
+  const [viewMode, setViewMode] = useState("landing"); 
 
   return (
     <>
-   <FaqScreen/>
+      {viewMode === "landing" ? (
+        <LandingPage onEnterChat={() => setViewMode("chat")} />
+      ) : (
+        <FaqScreen />
+      )}
     </>
-  )
+  );
 }
 
-export default App
+export default App;

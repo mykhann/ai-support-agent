@@ -1,6 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
-import {connectDB} from "./src/config/db.js"
+import { connectDB } from "./src/config/db.js"
 import chatRoutes from "./src/route/chat.route.js"
 import faqRoutes from "./src/route/faq.route.js"
 import cors from "cors"
@@ -9,23 +9,29 @@ import cors from "cors"
 dotenv.config();
 
 const app = express();
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "https://doc-based-ai-support-agent.vercel.app",
+    "https://doc-based-ai-support-agent-ivwl63xzc-usafkhann5-7890s-projects.vercel.app"
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  credentials: true
+}));
+
+app.options("*", cors());
 app.use(express.json());
 
 // DB connection 
 connectDB()
 
-// cors 
 
-app.use(cors({
-    origin: [
-    "https://doc-based-ai-support-agent.vercel.app",
-    "https://doc-based-ai-support-agent-ivwl63xzc-usafkhann5-7890s-projects.vercel.app"
-  ]
-}))
+
+
 // routes 
 
-app.use("/api/chat",chatRoutes)
-app.use("/api/faq",faqRoutes)
+app.use("/api/chat", chatRoutes)
+app.use("/api/faq", faqRoutes)
 
 
 

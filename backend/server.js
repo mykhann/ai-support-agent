@@ -15,7 +15,6 @@ app.use(cors({
     "https://doc-based-ai-support-agent.vercel.app",
     "https://doc-based-ai-support-agent-ivwl63xzc-usafkhann5-7890s-projects.vercel.app"
   ],
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   credentials: true
 }));
 
